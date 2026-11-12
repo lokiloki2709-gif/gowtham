@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Sweet Moments 💗</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+body {
+  background: linear-gradient(135deg, #fff5f8, #ffe0eb, #ffedf4);
+}
+
+.page { padding-top: 50px; }
+
+.title {
+  margin-bottom: 5px;
+  font-size: clamp(25px, 7.5vw, 32px);
+  font-weight: bold;
+  color: #c72f66;
+}
+
+.subtitle {
+  margin-bottom: 26px;
+  font-size: 16px;
+  color: #a95a75;
+}
+
+.card-area {
+  position: relative;
+  width: min(310px, 92vw);
+  height: min(440px, 118vw);
+}
+
+.card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(285px, 86vw);
+  height: min(410px, 110vw);
+  margin-left: calc(min(285px, 86vw) / -2);
+  margin-top: calc(min(410px, 110vw) / -2);
+  padding: 13px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(150, 70, 100, 0.2);
+  transition: transform 0.35s ease, opacity 0.35s ease;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: pan-y;
+  cursor: grab;
+}
+
+.card img {
+  display: block;
+  width: 100%;
+  height: calc(100% - 55px);
+  object-fit: cover;
+  border-radius: 12px;
+  -webkit-user-drag: none;
+  pointer-events: none;
+}
+
+.caption {
+  margin-top: 13px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #bd3968;
+}
+
+/* stacked look */
+.card:nth-child(1) { z-index: 6; transform: rotate(-2deg); }
+.card:nth-child(2) { z-index: 5; transform: translate(7px, 8px) rotate(3deg); }
+.card:nth-child(3) { z-index: 4; transform: translate(13px, 15px) rotate(-4deg); }
+.card:nth-child(4) { z-index: 3; transform: translate(18px, 20px) rotate(5deg); }
+.card:nth-child(5) { z-index: 2; transform: translate(23px, 25px) rotate(-6deg); }
+.card:nth-child(6) { z-index: 1; transform: translate(28px, 30px) rotate(6deg); }
+
+.card.swipe-left  { transform: translateX(-500px) rotate(-25deg) !important; opacity: 0; pointer-events: none; }
+.card.swipe-right { transform: translateX(500px) rotate(25deg) !important;  opacity: 0; pointer-events: none; }
+
+.swipe-text {
+  margin-top: 18px;
+  font-size: 15px;
+  color: #a84d6b;
+}
+
+#continueBtn {
+  display: none;
+  margin-top: 15px;
+  animation: buttonShow 0.6s ease;
+}
+
+@keyframes buttonShow {
+  from { opacity: 0; transform: translateY(15px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+
+<body>
+<div class="page">
+
+  <div class="title">Our Sweet Moments 💗</div>
+  <div class="subtitle">(Swipe the cards!)</div>
+
+  <div class="card-area" id="cardArea">
+
+    <div class="card">
+      <img src="assets/photo-1.jpeg" alt="Photo 1" draggable="false">
+      <div class="caption">Celebrating you 🎉</div>
+    </div>
+
+    <div class="card">
+      <img src="assets/photo-2.jpeg" alt="Photo 2" draggable="false">
+      <div class="caption">Happy moments 💕</div>
+    </div>
+
+    <div class="card">
+      <img src="assets/photo-3.jpeg" alt="Photo 3" draggable="false">
+      <div class="caption">Beautiful memories 🌸</div>
+    </div>
+
+    <div class="card">
+      <img src="assets/photo-4.jpeg" alt="Photo 4" draggable="false">
+      <div class="caption">Forever memories 🥰</div>
+    </div>
+
+    <div class="card">
+      <img src="assets/photo-5.jpeg" alt="Photo 5" draggable="false">
+      <div class="caption">Special moments 💗</div>
+    </div>
+
+    <div class="card">
+      <img src="assets/photo-6.jpeg" alt="Photo 6" draggable="false">
+      <div class="caption">With you always ❤️</div>
+    </div>
+
+  </div>
+
+  <div class="swipe-text" id="swipeText">👈 Swipe left or right 👉</div>
+
+  <button class="btn" id="continueBtn" onclick="location.href='navi5.html'">Continue ➜</button>
+
+</div>
+
+<script>
+  var cards = document.querySelectorAll(".card");
+  var current = 0;
+  var startX = null;
+
+  // One handler set for finger and mouse (pointer events)
+  cards.forEach(function (card, index) {
+    card.addEventListener("pointerdown", function (e) {
+      if (index !== current) return;
+      startX = e.clientX;
+    });
+
+    card.addEventListener("pointerup", function (e) {
+      if (index !== current || startX === null) return;
+      var dx = e.clientX - startX;
+      startX = null;
+
+      if (dx < -50) swipe("left");
+      else if (dx > 50) swipe("right");
+    });
+
+    card.addEventListener("pointercancel", function () { startX = null; });
+  });
+
+  function swipe(direction) {
+    if (current >= cards.length) return;
+
+    cards[current].classList.add(direction === "left" ? "swipe-left" : "swipe-right");
+    current++;
+
+    if (current === cards.length) {
+      setTimeout(function () {
+        document.getElementById("swipeText").textContent = "💗 Beautiful memories 💗";
+        document.getElementById("continueBtn").style.display = "block";
+      }, 500);
+    }
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Navi Kutty 💗</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+body {
+  background: linear-gradient(135deg, #fff1f6, #ffd9e8, #ffeaf2);
+}
+
+.page { padding-top: 60px; }
+
+.title {
+  margin: 0 0 50px;
+  font-size: clamp(22px, 6.5vw, 28px);
+  font-weight: bold;
+  color: #c92f68;
+}
+
+/* ---------- cake ---------- */
+.cake-area {
+  position: relative;
+  width: 280px;
+  height: 300px;
+}
+
+.plate {
+  position: absolute;
+  left: 25px;
+  bottom: 45px;
+  width: 230px;
+  height: 28px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.08);
+}
+
+.cake {
+  position: absolute;
+  left: 35px;
+  bottom: 65px;
+  width: 210px;
+  height: 100px;
+  background: #5b302f;
+  border-radius: 15px 15px 35px 35px;
+}
+
+.cream {
+  position: absolute;
+  left: 0;
+  top: -15px;
+  width: 210px;
+  height: 45px;
+  background: #fffde5;
+  border-radius: 20px 20px 35px 35px;
+}
+
+.candle {
+  position: absolute;
+  left: 129px;
+  bottom: 150px;
+  width: 22px;
+  height: 100px;
+  background: #a52f4d;
+  border-radius: 3px;
+  cursor: pointer;
+  z-index: 5;
+}
+
+.flame {
+  position: absolute;
+  left: -2px;
+  top: -35px;
+  width: 25px;
+  height: 36px;
+  background: #ffbd32;
+  border-radius: 50%;
+  box-shadow: 0 0 15px #ffb300, 0 0 30px rgba(255, 180, 0, 0.5);
+  animation: flicker 0.8s infinite alternate;
+}
+
+.flame::after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  bottom: 2px;
+  width: 10px;
+  height: 18px;
+  background: #fff4b0;
+  border-radius: 50%;
+}
+
+@keyframes flicker {
+  from { transform: rotate(-5deg) scale(1); }
+  to   { transform: rotate(5deg) scale(1.08); }
+}
+
+.flame.off { animation: blowOut 0.5s forwards; }
+
+@keyframes blowOut {
+  0%   { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: translateY(-15px) scale(0.1); }
+}
+
+.instruction {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  font-size: 17px;
+  color: #a34465;
+}
+
+/* ---------- wish screen ---------- */
+.wish-page {
+  display: none;
+  justify-content: center;
+  background: linear-gradient(135deg, #ffeaf3, #ffd2e4, #fff0f6);
+}
+
+.teddy {
+  margin-bottom: 25px;
+  font-size: 115px;
+  animation: teddyFloat 2s infinite ease-in-out;
+  filter: drop-shadow(0 8px 8px rgba(120, 60, 80, 0.15));
+}
+
+@keyframes teddyFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+
+.wish-text {
+  font-size: clamp(26px, 8vw, 32px);
+  font-weight: bold;
+  line-height: 1.35;
+  color: #c52f66;
+  text-shadow: 0 2px 5px rgba(130, 40, 70, 0.15);
+  animation: textAppear 0.8s ease;
+}
+
+@keyframes textAppear {
+  from { opacity: 0; transform: scale(0.7); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.small-text {
+  margin-top: 12px;
+  font-size: 17px;
+  color: #a34465;
+}
+
+.wish-page .btn { margin-top: 35px; }
+</style>
+</head>
+
+<body>
+
+<div class="page" id="candlePage">
+  <div class="title">Make a wish, Navi kutty 💗</div>
+
+  <div class="cake-area">
+    <div class="plate"></div>
+    <div class="cake"><div class="cream"></div></div>
+
+    <div class="candle" onclick="blowCandle()">
+      <div class="flame" id="flame"></div>
+    </div>
+
+    <div class="instruction">🖐️ Tap the candle to blow</div>
+  </div>
+</div>
+
+<div class="page wish-page" id="wishPage">
+  <div class="teddy">🧸</div>
+  <div class="wish-text">Close your eyes<br>&amp; make a wish ✨</div>
+  <div class="small-text">Make a beautiful wish, Navi kutty 💗</div>
+  <button class="btn" onclick="location.href='navi4.html'">Continue ➜</button>
+</div>
+
+<script>
+  function blowCandle() {
+    var flame = document.getElementById("flame");
+    if (flame.classList.contains("off")) return;
+    flame.classList.add("off");
+
+    setTimeout(function () {
+      document.getElementById("candlePage").style.display = "none";
+      document.getElementById("wishPage").style.display = "flex";
+    }, 600);
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>You Are Special 💗</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #fff0f6, #ffd6e7, #ffeaf2);
+}
+
+.page { padding-top: 60px; }
+
+h1 {
+  margin: 0 0 45px;
+  font-size: clamp(22px, 6.5vw, 27px);
+  color: #d6336c;
+}
+
+.balloon-area {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px 30px;
+  width: min(330px, 94vw);
+  margin: 0 auto;
+}
+
+.balloon-box {
+  position: relative;
+  width: 120px;
+  height: 140px;
+  margin: auto;
+  cursor: pointer;
+}
+
+.balloon {
+  position: absolute;
+  left: 20px;
+  top: 0;
+  width: 80px;
+  height: 100px;
+  border-radius: 50%;
+  box-shadow:
+    inset -10px -10px 15px rgba(0, 0, 0, 0.08),
+    inset 8px 8px 12px rgba(255, 255, 255, 0.55);
+  z-index: 2;
+}
+.blue   { background: #9ed9ef; }
+.pink   { background: #f3b5ca; }
+.green  { background: #a7dfc1; }
+.purple { background: #b9ace9; }
+
+.string {
+  position: absolute;
+  left: 59px;
+  top: 98px;
+  width: 2px;
+  height: 35px;
+  background: #999;
+  z-index: 1;
+}
+
+.knot {
+  position: absolute;
+  left: 50px;
+  top: 92px;
+  font-size: 17px;
+  z-index: 3;
+}
+
+.word {
+  position: absolute;
+  left: 0;
+  top: 35px;
+  width: 120px;
+  font-family: cursive;
+  font-size: 25px;
+  color: #c92f68;
+  opacity: 0;
+  transform: scale(0.3);
+  transition: all 0.45s ease;
+  z-index: 10;
+  pointer-events: none;
+}
+.word.show { opacity: 1; transform: scale(1); }
+
+.pop { animation: balloonPop 0.3s forwards; }
+
+@keyframes balloonPop {
+  0%   { transform: scale(1);   opacity: 1; }
+  50%  { transform: scale(1.3); opacity: 0.8; }
+  100% { transform: scale(0);   opacity: 0; }
+}
+
+.blast-ring {
+  position: absolute;
+  left: 45px;
+  top: 35px;
+  width: 30px;
+  height: 30px;
+  border: 4px solid #fff;
+  border-radius: 50%;
+  opacity: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+.blast-ring.active { animation: blastRing 0.45s ease-out; }
+
+@keyframes blastRing {
+  0%   { width: 20px;  height: 20px;  left: 50px; top: 40px;  opacity: 1; }
+  100% { width: 120px; height: 120px; left: 0;    top: -10px; opacity: 0; }
+}
+
+.particle {
+  position: absolute;
+  left: 56px;
+  top: 45px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  z-index: 8;
+  pointer-events: none;
+}
+.particle.active { animation: particleBlast 0.65s ease-out forwards; }
+
+@keyframes particleBlast {
+  0%   { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(var(--x), var(--y)) scale(0); opacity: 0; }
+}
+
+.spark {
+  position: absolute;
+  left: 52px;
+  top: 35px;
+  font-size: 20px;
+  color: #fff;
+  opacity: 0;
+  z-index: 9;
+  pointer-events: none;
+}
+.spark.active { animation: sparkBlast 0.6s ease-out forwards; }
+
+@keyframes sparkBlast {
+  0%   { transform: scale(0); opacity: 1; }
+  100% { transform: translate(var(--x), var(--y)) scale(1.4); opacity: 0; }
+}
+
+#nextBtn {
+  display: none;
+  margin-top: 30px;
+}
+</style>
+</head>
+
+<body>
+<div class="page">
+
+  <h1>Pop all 4 balloons</h1>
+
+  <div class="balloon-area">
+
+    <div class="balloon-box" onclick="popBalloon(this, 'w1')">
+      <div class="balloon blue"></div>
+      <div class="knot">🎀</div>
+      <div class="string"></div>
+      <div class="blast-ring"></div>
+      <div class="word" id="w1">You</div>
+    </div>
+
+    <div class="balloon-box" onclick="popBalloon(this, 'w2')">
+      <div class="balloon pink"></div>
+      <div class="knot">🎀</div>
+      <div class="string"></div>
+      <div class="blast-ring"></div>
+      <div class="word" id="w2">are</div>
+    </div>
+
+    <div class="balloon-box" onclick="popBalloon(this, 'w3')">
+      <div class="balloon green"></div>
+      <div class="knot">🎀</div>
+      <div class="string"></div>
+      <div class="blast-ring"></div>
+      <div class="word" id="w3">so</div>
+    </div>
+
+    <div class="balloon-box" onclick="popBalloon(this, 'w4')">
+      <div class="balloon purple"></div>
+      <div class="knot">🎀</div>
+      <div class="string"></div>
+      <div class="blast-ring"></div>
+      <div class="word" id="w4">special</div>
+    </div>
+
+  </div>
+
+  <button class="btn" id="nextBtn" onclick="location.href='navi3.html'">Next ➜</button>
+
+</div>
+
+<script>
+  var popped = 0;
+  var COLORS = ["#ff6f91", "#ffb6c1", "#ffd166", "#ffffff", "#cdb4db"];
+
+  function popBalloon(box, wordId) {
+    if (box.classList.contains("done")) return;
+    box.classList.add("done");
+
+    box.querySelector(".balloon").classList.add("pop");
+    box.querySelector(".blast-ring").classList.add("active");
+
+    burst(box, 14, "particle", 45, 45, function (el) {
+      var size = 5 + Math.random() * 7;
+      el.style.width = el.style.height = size + "px";
+      el.style.background = COLORS[Math.floor(Math.random() * COLORS.length)];
+    });
+    burst(box, 5, "spark", 50, 50, function (el) { el.textContent = "✦"; });
+
+    popped++;
+
+    setTimeout(function () {
+      document.getElementById(wordId).classList.add("show");
+    }, 180);
+
+    if (popped === 4) {
+      setTimeout(function () {
+        document.getElementById("nextBtn").style.display = "block";
+      }, 700);
+    }
+  }
+
+  function burst(box, count, cls, minDist, spread, decorate) {
+    for (var i = 0; i < count; i++) {
+      var el = document.createElement("div");
+      el.className = cls;
+
+      var angle = Math.random() * Math.PI * 2;
+      var dist = minDist + Math.random() * spread;
+      el.style.setProperty("--x", Math.cos(angle) * dist + "px");
+      el.style.setProperty("--y", Math.sin(angle) * dist + "px");
+
+      decorate(el);
+      box.appendChild(el);
+
+      (function (e) {
+        setTimeout(function () { e.classList.add("active"); }, 10);
+        setTimeout(function () { e.remove(); }, 700);
+      })(el);
+    }
+  }
+</script>
+</body>
+</html>

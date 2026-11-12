@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Message From My Heart 💗</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+body {
+  background: linear-gradient(135deg, #fff8fb, #ffe5ef, #ffd9e8);
+}
+
+.page { padding-top: 60px; }
+
+.title {
+  margin-bottom: 8px;
+  font-size: clamp(26px, 8vw, 34px);
+  font-weight: bold;
+  color: #a52d59;
+}
+
+.title.shake { animation: shake 0.7s ease; }
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(6px); }
+}
+
+.subtitle {
+  margin-bottom: 40px;
+  font-size: 16px;
+  color: #9d6378;
+}
+
+/* ---------- envelope ---------- */
+.envelope {
+  position: relative;
+  width: min(300px, 86vw);
+  height: min(190px, 54vw);
+  background: #fffef0;
+  border: 3px solid #d8b95b;
+  border-radius: 5px;
+  box-shadow: 0 15px 35px rgba(130, 70, 90, 0.2);
+  cursor: pointer;
+}
+
+.flap {
+  position: absolute;
+  left: -2px;
+  top: -2px;
+  width: calc(100% + 4px);
+  height: 66%;
+  background: #fff9cf;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  border-top: 3px solid #d8b95b;
+  transform-origin: top;
+  transition: transform 0.9s ease;
+  z-index: 5;
+}
+
+.heart {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 42px;
+  z-index: 10;
+  transition: 0.5s;
+}
+
+.envelope.open .flap  { transform: rotateX(180deg); }
+.envelope.open .heart { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+
+.tap-text {
+  margin-top: 25px;
+  font-size: 17px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: #98405f;
+}
+
+/* ---------- message ---------- */
+.message-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #fff8fb, #ffe5ef, #ffd9e8);
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.9);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  z-index: 100;
+}
+
+.message-screen.show {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+}
+
+.message-card {
+  width: 100%;
+  max-width: 420px;
+  max-height: 88vh;
+  overflow-y: auto;
+  padding: 28px 24px;
+  background: #fffef0;
+  border: 2px solid #eadb9b;
+  border-radius: 22px;
+  box-shadow: 0 18px 50px rgba(130, 60, 90, 0.25);
+  text-align: left;
+  animation: cardPop 0.7s ease;
+}
+
+@keyframes cardPop {
+  0%   { transform: scale(0.5) rotate(-4deg); opacity: 0; }
+  60%  { transform: scale(1.05) rotate(2deg); }
+  100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+
+.message-card h2 {
+  margin: 0 0 22px;
+  font-size: 25px;
+  color: #a52d59;
+}
+
+.card-heart {
+  float: right;
+  font-size: 30px;
+  animation: beat 1.2s infinite;
+}
+
+@keyframes beat {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.2); }
+}
+
+.message-card p {
+  margin: 0 0 22px;
+  font-size: 17px;
+  line-height: 1.8;
+  color: #684b57;
+}
+
+.message-card .btn {
+  display: block;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #d83f75, #ed719b);
+}
+
+/* ---------- sparkles ---------- */
+.sparkle {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  font-size: 25px;
+  pointer-events: none;
+  z-index: 200;
+  animation: sparkle 1.2s ease-out forwards;
+}
+
+@keyframes sparkle {
+  0%   { opacity: 1; transform: translate(0, 0) scale(0.5); }
+  100% { opacity: 0; transform: translate(var(--x), var(--y)) scale(1.4); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="page" id="mainPage">
+  <div class="title" id="title">A Message From My Heart 💗</div>
+  <div class="subtitle">Tap the envelope to open</div>
+
+  <div class="envelope" id="envelope" onclick="openEnvelope()">
+    <div class="flap"></div>
+    <div class="heart">💗</div>
+  </div>
+
+  <div class="tap-text">TAP TO OPEN</div>
+</div>
+
+<div class="message-screen" id="messageScreen">
+  <div class="message-card">
+    <div class="card-heart">💗</div>
+    <h2>Dear Navi kutty 💗</h2>
+
+    <p>Happy Birthday to someone truly special 🎂</p>
+
+    <p>You are sweet, caring and so special to me.<br>
+       I am so grateful to have you in my life. 💕</p>
+
+    <p>You bring so much happiness and warmth<br>
+       into my life.</p>
+
+    <p>May all your wishes come true<br>
+       and may you always keep smiling. 🥰</p>
+
+    <button class="btn" onclick="location.href='navi6.html'">Continue 💕</button>
+  </div>
+</div>
+
+<script>
+  function openEnvelope() {
+    var envelope = document.getElementById("envelope");
+    if (envelope.classList.contains("open")) return;
+
+    envelope.classList.add("open");
+    document.getElementById("title").classList.add("shake");
+    createSparkles();
+
+    setTimeout(function () {
+      document.getElementById("mainPage").style.display = "none";
+      document.getElementById("messageScreen").classList.add("show");
+    }, 850);
+  }
+
+  function createSparkles() {
+    var symbols = ["✨", "💗", "💕", "💖", "🌸"];
+
+    for (var i = 0; i < 20; i++) {
+      var s = document.createElement("div");
+      s.className = "sparkle";
+      s.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      s.style.setProperty("--x", (Math.random() * 500 - 250) + "px");
+      s.style.setProperty("--y", (Math.random() * 500 - 250) + "px");
+      document.body.appendChild(s);
+
+      (function (el) { setTimeout(function () { el.remove(); }, 1300); })(s);
+    }
+  }
+</script>
+</body>
+</html>

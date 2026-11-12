@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>One Last Thing 💗</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+body {
+  background: linear-gradient(135deg, #fff7fa, #ffe5ee, #fff0f5);
+}
+
+.page { padding-top: 70px; }
+
+.title {
+  margin-bottom: 8px;
+  font-size: clamp(30px, 9vw, 42px);
+  font-weight: bold;
+  font-style: italic;
+  color: #c52f65;
+}
+
+.subtitle {
+  margin-bottom: 40px;
+  font-size: 19px;
+  color: #9d536c;
+}
+
+/* ---------- gift ---------- */
+.gift-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 190px;
+  height: 180px;
+  cursor: pointer;
+}
+
+.gift {
+  font-size: 125px;
+  filter: drop-shadow(0 12px 15px rgba(190, 70, 110, 0.2));
+  transition: transform 0.25s ease, opacity 0.4s ease;
+}
+
+.gift.tap { animation: wobble 0.35s ease; }
+
+@keyframes wobble {
+  0%   { transform: rotate(0) scale(1); }
+  25%  { transform: rotate(-8deg) scale(1.08); }
+  50%  { transform: rotate(8deg) scale(1.08); }
+  75%  { transform: rotate(-5deg) scale(1.08); }
+  100% { transform: rotate(0) scale(1); }
+}
+
+.gift.glow { animation: glow 0.8s ease; }
+
+@keyframes glow {
+  0%   { filter: drop-shadow(0 0 0 #ff7fa8); }
+  50%  { filter: drop-shadow(0 0 35px #ff72a0); }
+  100% { filter: drop-shadow(0 12px 15px rgba(190, 70, 110, 0.2)); }
+}
+
+.tap-text {
+  margin-top: 20px;
+  font-size: 17px;
+  font-weight: bold;
+  color: #a84f6e;
+}
+
+.tap-count { color: #cf3b70; }
+
+/* ---------- final card ---------- */
+#finalPage {
+  display: none;
+  justify-content: center;
+}
+
+.final-card {
+  width: min(330px, 92vw);
+  min-height: 390px;
+  padding: 30px 25px;
+  background: #fffef5;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(150, 70, 100, 0.25);
+  animation: cardOpen 0.8s ease;
+}
+
+@keyframes cardOpen {
+  0%   { opacity: 0; transform: scale(0.5) rotate(-8deg); }
+  70%  { transform: scale(1.08) rotate(2deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0); }
+}
+
+.final-title {
+  margin-bottom: 20px;
+  font-size: 27px;
+  font-weight: bold;
+  color: #c72f66;
+}
+
+.final-image {
+  margin-bottom: 20px;
+  font-size: 90px;
+}
+
+.final-text {
+  font-size: 17px;
+  line-height: 1.7;
+  color: #693c4d;
+}
+
+.replay {
+  margin-top: 25px;
+  padding: 13px 38px;
+  background: #fff;
+  color: #c43769;
+  font-size: 17px;
+  font-weight: bold;
+  border-radius: 30px;
+  box-shadow: 0 6px 18px rgba(180, 70, 110, 0.2);
+  transition: transform 0.25s;
+}
+.replay:hover  { transform: scale(1.08); }
+.replay:active { transform: scale(0.95); }
+
+/* ---------- floating hearts ---------- */
+.float-heart {
+  position: fixed;
+  font-size: 25px;
+  pointer-events: none;
+  animation: floatUp 2s ease-out forwards;
+}
+
+@keyframes floatUp {
+  0%   { opacity: 1; transform: translateY(0) scale(0.5) rotate(0); }
+  100% { opacity: 0; transform: translateY(-500px) scale(1.4) rotate(360deg); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="page" id="startPage">
+  <div class="title">One Last Thing... 💗</div>
+  <div class="subtitle">Tap the gift 🎁</div>
+
+  <div class="gift-container" onclick="tapGift()">
+    <div class="gift" id="gift">🎁</div>
+  </div>
+
+  <div class="tap-text">
+    Tap <span class="tap-count" id="tapCount">5</span> more times 💕
+  </div>
+</div>
+
+<div class="page" id="finalPage">
+  <div class="final-card">
+    <div class="final-title">Lots of love for you ❤️</div>
+    <div class="final-image">🐥 🧸</div>
+
+    <div class="final-text">
+      Once again, Happy Birthday!!! 🎂💗<br>
+      Kutty chellameeeeeee 🥰
+      <br><br>
+      I hope you loved your little surprise
+      and all these sweet moments. 🥰
+      <br><br>
+      Lots and lots of love for you! ❤️
+    </div>
+
+    <button class="replay" onclick="location.href='index.html'">↻ Replay</button>
+  </div>
+</div>
+
+<script>
+  var taps = 0;
+  var TOTAL = 5;
+  var gift = document.getElementById("gift");
+
+  function restart(el, cls) {
+    el.classList.remove(cls);
+    void el.offsetWidth;
+    el.classList.add(cls);
+  }
+
+  function tapGift() {
+    if (taps >= TOTAL) return;
+    taps++;
+
+    restart(gift, "tap");
+    setTimeout(function () { restart(gift, "glow"); }, 360);
+
+    document.getElementById("tapCount").textContent = TOTAL - taps;
+    createHearts(3);
+
+    if (taps === TOTAL) {
+      setTimeout(openGift, 700);
+    }
+  }
+
+  function openGift() {
+    gift.style.transform = "scale(1.5)";
+    gift.style.opacity = "0";
+    createHearts(25);
+
+    setTimeout(function () {
+      document.getElementById("startPage").style.display = "none";
+      document.getElementById("finalPage").style.display = "flex";
+    }, 700);
+  }
+
+  function createHearts(amount) {
+    var emojis = ["💗", "💕", "❤️", "💖", "✨", "🌸"];
+
+    for (var i = 0; i < amount; i++) {
+      var h = document.createElement("div");
+      h.className = "float-heart";
+      h.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      h.style.left = Math.random() * 95 + "vw";
+      h.style.top = (55 + Math.random() * 25) + "vh";
+      h.style.animationDuration = (1.5 + Math.random() * 1.5) + "s";
+      document.body.appendChild(h);
+
+      (function (el) { setTimeout(function () { el.remove(); }, 3200); })(h);
+    }
+  }
+</script>
+</body>
+</html>
